@@ -21,7 +21,7 @@
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
-
+#include "imu.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -49,8 +49,9 @@ uint8_t tx_data;
 uint8_t rx_data;
 uint8_t length;
 uint8_t rx_data_gyro[6];
-uint8_t rx_data_accel[6];
+uint8_t rx_data_acc[6];
 uint32_t timer_tick_count = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,6 +98,7 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_TIM6_Init();
+
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim6);
   /* USER CODE END 2 */
