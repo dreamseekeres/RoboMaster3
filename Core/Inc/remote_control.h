@@ -16,6 +16,14 @@ extern "C" {
 #include "stdbool.h"
 //================= 数据结构 =================//
 
+typedef enum
+{
+    SWITCH_UP = 0, // 上
+    SWITCH_MID = 1, // 中
+    SWITCH_DOWN = 2 // 下
+} SwitchState;
+
+
 typedef struct
 {
     uint16_t ch0;
@@ -25,6 +33,16 @@ typedef struct
     uint8_t s1;
     uint8_t s2;
 } RC_Data_t;
+
+typedef struct
+{
+    float ch0;
+    float ch1;
+    float ch2;
+    float ch3;
+    SwitchState s1;
+    SwitchState s2;
+} last_RC_Data_t;
 
 //================= 遥控器类 =================//
 
@@ -38,6 +56,8 @@ public:
 
 private:
     void updateConnection();
+    float mapChannelToRange(uint16_t raw_value);
+    SwitchState getSState(uint8_t state);
 
 public:
     uint8_t rx_buf[18];
@@ -45,6 +65,7 @@ public:
     uint32_t last_tick;
     bool connected;
     RC_Data_t rc_data;
+    last_RC_Data_t last_rc_data;
 };
 #ifdef __cplusplus
 }
