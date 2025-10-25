@@ -18,10 +18,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "spi.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
-#include "imu.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -51,6 +53,7 @@ uint8_t length;
 uint8_t rx_data_gyro[6];
 uint8_t rx_data_acc[6];
 uint32_t timer_tick_count = 0;
+
 
 /* USER CODE END PV */
 
@@ -96,11 +99,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_SPI1_Init();
   MX_TIM6_Init();
-
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim6);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
